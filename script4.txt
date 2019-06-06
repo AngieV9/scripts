@@ -1,0 +1,55 @@
+- Shkruani nje shell script (copy_remote.sh) i cili kopjon files nga nje server local tek nje server remote.
+
+Ne kohen qe egzekutohet scripti, useri duhet te japi si input parametrat e meposhtem :
+   
+Vendosni addresen IP te Serverit Remote : IPAddress
+  
+Vendosni userin tuaj ne Serverin Remote : Username
+ 
+Vendosni password per kete user : Password
+    
+Vendosni Source Path per filet qe deshironi te zhvendosni : SourcePath (/example/example/files)
+    
+Vendosni Destination Path ne Serverin Remote : DestinationPath (/example/example)
+    
+
+Hints:
+
+Hapat qe duhet te egzekutoje scripti:
+
+read, ssh, ,scp,
+
+
+#!/bin/bash
+
+read -p "Vendosni addresen IP te Serverit Remote :" IPAddress
+
+read -p "Vendosni userin tuaj ne Serverin Remote :" Username
+
+read -p "Vendosni password per kete user :" Password
+
+read -p "Vendosni Source Path per filet qe deshironi te zhvendosni :" SourcePath
+
+read -p "Vendosni Destination Path ne Serverin Remote :" DestinationPath
+
+
+
+ping -c 1 ${IPAddress} > output.txt
+
+if [ $? -eq 0 ]
+
+then
+       
+echo "Server is reachable!"
+       
+echo "Transfering Files..."
+       
+sshpass -p ${Password} scp -r $SourcePath ${Username}@${IPAddress}:${DestinationPath}
+       
+echo "Files have been transfered!"
+
+else
+       
+echo "Server is not reachable!"
+
+fi

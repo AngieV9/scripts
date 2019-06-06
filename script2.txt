@@ -1,0 +1,69 @@
+2. Modifikoni scripting e mesiperm check_object.sh qe te afishoje help manual kur scripti egzekutohet pa parameter.
+
+Hints : $#
+
+
+#!/bin/bash
+
+
+help(){
+
+echo "Usage: ${0} List_of_parameters"
+
+}
+
+
+
+function afisho(){
+
+
+a=0
+
+b=0
+
+
+echo "-------------------------"
+
+for i in $@
+
+do
+
+if [ -d $i ]
+
+then
+
+echo "$i eshte directory"
+
+let a=$a+1
+
+else
+
+echo "$i eshte file"
+
+let b=$b+1
+
+fi
+
+done
+
+
+echo "--------------------------"
+
+echo "Direktori : $a"
+
+echo "File: $b"
+
+
+}
+
+
+
+if [ $# -eq 0 ]
+then
+ help
+
+else
+ 
+afisho $@
+
+fi
